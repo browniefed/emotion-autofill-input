@@ -1,23 +1,43 @@
-/**
- * @class ExampleComponent
- */
+/** @jsx jsx */
+import { jsx, css, keyframes } from "@emotion/core";
 
-import * as React from 'react'
+const onAutoFillStart = keyframes`
+from{}
+`;
+const onAutoFillCancel = keyframes`
+to{}
+`;
 
-import styles from './styles.css'
-
-export type Props = { text: string }
-
-export default class ExampleComponent extends React.Component<Props> {
-  render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
+const animation = css`
+  &:-webkit-autofill {
+    animation-name: ${onAutoFillStart};
   }
+  &:not(:-webkit-autofill) {
+    animation-name: ${onAutoFillCancel};
+  }
+`;
+interface Props {
+  onAutoFill: (filled: boolean) => void;
 }
+
+const AutofillInput: React.SFC<Props & React.InputHTMLAttributes<HTMLInputElement>> = ({
+  onAutoFill,
+  ...props
+}) => {
+  return (
+    <input
+      css={animation}
+      onAnimationStart={e => {
+        debugger;
+        if (e.animationName === onAutoFillStart.name) {
+          onAutoFill(true);
+        } else if (e.animationName === onAutoFillCancel.name) {
+          onAutoFill(false);
+        }
+      }}
+      {...props}
+    />
+  );
+};
+
+export default AutofillInput;

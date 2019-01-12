@@ -1,13 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import ExampleComponent from 'emotion-autofill-input'
+import AutofillInput from "emotion-autofill-input";
 
 export default class App extends Component {
-  render () {
+  state = {
+    value: "",
+  };
+  render() {
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        <AutofillInput
+          value={this.state.value}
+          onChange={e => {
+            this.setState({ value: e.target.value })
+            console.log(e.target.value);
+          }}
+          name="name"
+          onAutoFill={filled => console.log(filled)}
+        />
       </div>
-    )
+    );
   }
 }
