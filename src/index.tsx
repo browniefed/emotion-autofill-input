@@ -20,7 +20,7 @@ interface Props {
   onAutoFill: (filled: boolean) => void;
 }
 
-const AutofillInput: React.SFC<Props & React.InputHTMLAttributes<HTMLInputElement>> = ({
+const AutofillInput: React.FC<Props & React.InputHTMLAttributes<HTMLInputElement>> = ({
   onAutoFill,
   ...props
 }) => {
