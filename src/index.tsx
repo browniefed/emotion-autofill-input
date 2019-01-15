@@ -22,12 +22,16 @@ interface Props {
 
 const AutofillInput: React.FC<Props & React.InputHTMLAttributes<HTMLInputElement>> = ({
   onAutoFill,
+  onAnimationStart,
   ...props
 }) => {
   return (
     <input
       css={animation}
       onAnimationStart={e => {
+        // Allow users to still use the onAnimationStart callback
+        onAnimationStart && onAnimationStart(e)
+
         if (e.animationName === onAutoFillStart.name) {
           onAutoFill(true);
         } else if (e.animationName === onAutoFillCancel.name) {
