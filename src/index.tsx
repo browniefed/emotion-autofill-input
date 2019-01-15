@@ -28,7 +28,6 @@ const AutofillInput: React.FC<Props & React.InputHTMLAttributes<HTMLInputElement
     <input
       css={animation}
       onAnimationStart={e => {
-        debugger;
         if (e.animationName === onAutoFillStart.name) {
           onAutoFill(true);
         } else if (e.animationName === onAutoFillCancel.name) {
